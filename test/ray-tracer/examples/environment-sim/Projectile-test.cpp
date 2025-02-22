@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include <ray-tracer/environment-sim/Projectile.hpp>
+#include <ray-tracer/examples/environment-sim/Projectile.hpp>
 #include <ray-tracer/spatial/Point.hpp>
 #include <ray-tracer/spatial/Vector.hpp>
 

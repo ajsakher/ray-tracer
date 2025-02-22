@@ -1,6 +1,6 @@
-#include <ray-tracer/environment-sim/Environment.hpp>
-#include <ray-tracer/environment-sim/EnvironmentSim.hpp>
-#include <ray-tracer/environment-sim/Projectile.hpp>
+#include <ray-tracer/examples/environment-sim/Environment.hpp>
+#include <ray-tracer/examples/environment-sim/EnvironmentSim.hpp>
+#include <ray-tracer/examples/environment-sim/Projectile.hpp>
 #include <ray-tracer/spatial/Point.hpp>
 #include <ray-tracer/spatial/Vector.hpp>
 

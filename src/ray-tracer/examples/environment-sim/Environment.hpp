@@ -1,7 +1,7 @@
 #ifndef RAYTRACER_ENVIRONMENTSIM_ENVIRONMENT_HPP
 #define RAYTRACER_ENVIRONMENTSIM_ENVIRONMENT_HPP
 
-#include <ray-tracer/environment-sim/Projectile.hpp>
+#include <ray-tracer/examples/environment-sim/Projectile.hpp>
 #include <ray-tracer/spatial/Vector.hpp>
 
 namespace RayTracer {
