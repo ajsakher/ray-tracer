@@ -3,38 +3,16 @@
 #include <utility>
 #include <vector>
 
+#include <ray-tracer/core/util.hpp>
 #include <ray-tracer/display/Canvas.hpp>
 #include <ray-tracer/display/CanvasToPPM.hpp>
-#include <ray-tracer/core/util.hpp>
 #include <ray-tracer/environment-sim/Environment.hpp>
 #include <ray-tracer/environment-sim/EnvironmentSim.hpp>
 #include <ray-tracer/environment-sim/Projectile.hpp>
 #include <ray-tracer/spatial/Point.hpp>
 #include <ray-tracer/spatial/Vector.hpp>
 
-const std::vector< std::pair<int, int> > POINTS_AROUND = {
-    std::make_pair(0, 0),
-    std::make_pair(0, 1),
-    std::make_pair(1, 1),
-    std::make_pair(1, 0),
-    std::make_pair(1, -1),
-    std::make_pair(0, -1),
-    std::make_pair(-1, -1),
-    std::make_pair(-1, 0),
-    std::make_pair(-1, 1),
-};
-
 const RayTracer::Display::Color CANVAS_COLOR(255, 0, 0);
-
-void write_pixels_around(RayTracer::Display::Canvas& c, size_t x, size_t y) {
-    for (auto& point_adjust : POINTS_AROUND) {
-        try {
-            c.write_pixel(x + point_adjust.first, y + point_adjust.second, CANVAS_COLOR);
-        } catch (std::invalid_argument) {
-            continue;
-        }
-    }
-}
 
 int main(int argc, char* argv[]) {
     if (argc != 1 && argc != 13) {
@@ -56,8 +34,8 @@ int main(int argc, char* argv[]) {
     int num_ticks = 0;
     while (projectile.get_position().get_y() > 0.0) {
         projectile = RayTracer::EnvironmentSim::tick(e, projectile);
-        write_pixels_around(
-            c, projectile.get_position().get_x(), c.get_height() - projectile.get_position().get_y());
+        RayTracer::Core::write_pixels_around(
+            c, projectile.get_position().get_x(), c.get_height() - projectile.get_position().get_y(), CANVAS_COLOR);
         ++num_ticks;
     }
     std::cout << "Final projectile position: (" << projectile.get_position().get_x()

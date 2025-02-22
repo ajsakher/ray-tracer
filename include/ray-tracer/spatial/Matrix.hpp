@@ -22,8 +22,8 @@ public:
     Matrix(size_t, size_t);
     Matrix(const std::vector< std::vector<double> >&);
 
-    const size_t get_width() { return width; }
-    const size_t get_height() { return height; }
+    const size_t get_width() const { return width; }
+    const size_t get_height() const { return height; }
 
     double& operator()(size_t, size_t);
     const double& operator()(size_t, size_t) const;
@@ -35,7 +35,16 @@ public:
     Vector operator*(const Vector&) const;
 
     Matrix transpose() const;
+    Matrix invert() const;
+
+    double determinant() const;
 };
+
+Matrix get_submatrix(const Matrix&, size_t, size_t);
+double minor(const Matrix&, size_t, size_t);
+double cofactor(const Matrix&, size_t, size_t);
+
+void print_matrix(const Matrix&);
 
 }
 }

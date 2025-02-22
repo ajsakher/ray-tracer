@@ -1,3 +1,4 @@
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
 #include <vector>
@@ -130,6 +131,84 @@ Matrix Matrix::transpose() const {
         }
     }
     return new_matrix;
+}
+
+Matrix get_submatrix(const Matrix& m, size_t row_remove, size_t col_remove) {
+    if (row_remove >= m.get_height() || col_remove >= m.get_width()) {
+        std::stringstream error;
+        error << "Submatrix row_remove or column_remove out of bounds:\n";
+        error << "Matrix: (" << m.get_height() << ", " << m.get_width() << ")\n";
+        error << "row_remove: " << row_remove << ", col_remove: " << col_remove << "\n";
+        throw std::invalid_argument(error.str());
+    }
+    Matrix submatrix(m.get_height() - 1, m.get_width() - 1);
+    int x = 0, y = 0;
+    for (int i = 0; i < m.get_height(); ++i) {
+        if (i == row_remove) continue;
+        y = 0;
+        for (int j = 0; j < m.get_width(); ++j) {
+            if (j == col_remove) continue;
+            submatrix(x, y) = m(i, j);
+            ++y;
+        }
+        ++x;
+    }
+    return submatrix;
+}
+
+double minor(const Matrix& m, size_t row_remove, size_t col_remove) {
+    return get_submatrix(m, row_remove, col_remove).determinant();
+}
+
+double cofactor(const Matrix& m, size_t row_remove, size_t col_remove) {
+    return (row_remove + col_remove) % 2 == 0 ?
+        minor(m, row_remove, col_remove) :
+        -minor(m, row_remove, col_remove);
+}
+
+double Matrix::determinant() const {
+    if (this->width != this->height) {
+        std::stringstream error;
+        error << "Determinant does not exist for non-square matrix of size: ";
+        error << "(" << this->height << ", " << this->width << ")\n";
+        throw std::runtime_error(error.str());
+    }
+    const Matrix& m = *this;
+    if (this->width == 2) {
+        return m(0, 0) * m(1, 1) - m(0, 1) * m(1, 0);
+    }
+    double total = 0;
+    for (int i = 0; i < this->width; ++i) {
+        total += m(0, i) * cofactor(m, 0, i);
+    }
+    return total;
+}
+
+Matrix Matrix::invert() const {
+    double det = this->determinant();
+    if (det == 0) {
+        throw std::runtime_error(
+            "Matrix with determinant of 0 is not invertible");
+    }
+    Matrix inverted(this->height, this->width);
+    for (int i = 0; i < this->height; ++i) {
+        for (int j = 0; j < this->width; ++j) {
+            inverted(j, i) = cofactor(*this, i, j) / det;
+        }
+    }
+    return inverted;
+}
+
+void print_matrix(const Matrix& m) {
+    for (int i = 0; i < m.get_height(); ++i) {
+        for (int j = 0; j < m.get_width(); ++j) {
+            std::cout << m(i, j);
+            if (j != m.get_width() - 1) {
+                std::cout << ", ";
+            }
+        }
+        std::cout << std::endl;
+    }
 }
 
 }
