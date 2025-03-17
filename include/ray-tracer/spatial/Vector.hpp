@@ -35,6 +35,8 @@ public:
     double dot(const Vector& v) const;
     Vector cross(const Vector& v) const;
 
+    Vector reflect(const Vector&) const;
+
     friend double dot(const Vector& a, const Vector& b);
     friend Vector cross(const Vector& a, const Vector& b);
 };

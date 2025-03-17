@@ -109,6 +109,10 @@ Vector cross(const Vector& a, const Vector& b) {
     return compute_cross_product(a, b);
 }
 
+Vector Vector::reflect(const Vector& normal) const {
+    return *this - normal * 2 * this->dot(normal);
+}
+
 }
 } // namespace RayTracer
 

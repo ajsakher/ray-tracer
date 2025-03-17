@@ -148,3 +148,13 @@ TEST(Vector, cross) {
     EXPECT_EQ(y.cross(z), x);
     EXPECT_EQ(z.cross(x), y);
 }
+
+TEST(Vector, reflect) {
+    RayTracer::Spatial::Vector in(1, -1, 0);
+    RayTracer::Spatial::Vector n(0, 1, 0);
+    EXPECT_EQ(in.reflect(n), RayTracer::Spatial::Vector(1, 1, 0));
+    EXPECT_EQ(
+        RayTracer::Spatial::Vector(0, -1, 0).reflect(RayTracer::Spatial::Vector(std::sqrt(2) / 2, std::sqrt(2) / 2, 0)),
+        RayTracer::Spatial::Vector(1, 0, 0)
+    );
+}

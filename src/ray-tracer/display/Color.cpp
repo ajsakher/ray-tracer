@@ -1,3 +1,4 @@
+#include <ray-tracer/core/util.hpp>
 #include <ray-tracer/display/Color.hpp>
 
 namespace RayTracer {
@@ -64,9 +65,9 @@ Color& Color::operator*=(const Color& c) {
 }
 
 bool Color::operator==(const Color& c) const {
-    return this->red == c.red &&
-        this->green == c.green &&
-        this->blue == c.blue;
+    return Core::essentially_equal(this->red, c.red) &&
+        Core::essentially_equal(this->green, c.green) &&
+        Core::essentially_equal(this->blue, c.blue);
 }
 
 }

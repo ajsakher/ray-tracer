@@ -12,7 +12,7 @@
 #include <ray-tracer/spatial/Point.hpp>
 #include <ray-tracer/spatial/Vector.hpp>
 
-const RayTracer::Display::Color CANVAS_COLOR(255, 0, 0);
+const RayTracer::Display::Color CANVAS_COLOR(1.0, 0, 0);
 
 int main(int argc, char* argv[]) {
     if (argc != 1 && argc != 13) {

@@ -7,7 +7,7 @@
 #include <ray-tracer/spatial/Point.hpp>
 #include <ray-tracer/spatial/Transform.hpp>
 
-const RayTracer::Display::Color CANVAS_COLOR(255, 255, 255);
+const RayTracer::Display::Color CANVAS_COLOR(1.0, 1.0, 1.0);
 
 int main() {
     RayTracer::Display::Canvas c(500, 500);
